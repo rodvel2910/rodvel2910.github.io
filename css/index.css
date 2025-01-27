@@ -1,0 +1,134 @@
+/* Variables */
+    :root {
+        --color-principal: #222;
+        --color-azul: #405284;
+        --color-dorado: #daa520;
+        --color-blanco: white;
+    }
+/* Fuentes */
+    /* @import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap'); */
+    @font-face {
+        font-family: 'light';
+        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Thin.ttf');
+        font-weight: 100;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'regular';
+        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Light.ttf');
+        font-weight: 300;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'bold';
+        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Regular.ttf');
+        font-weight: 400;
+        font-style: normal;
+    }
+    .fuente-light {
+        font-family: "light", serif !important;
+    }
+    .fuente-regular {
+        font-family: "regular", serif !important;
+    }
+    .fuente-bold {
+        font-family: "bold", serif !important;
+    }
+/* Colores */
+    .white {
+        background: var(--color-blanco) !important;
+    }
+    .white-text {
+        color: var(--color-blanco) !important;
+    }
+    .gold {
+        background: var(--color-dorado) !important;
+    }
+    .blue {
+        background: var(--color-azul) !important;
+    }
+    .principal {
+        background: var(--color-principal) !important;
+    }
+    .principal-text {
+        color: var(--color-principal) !important;
+    }
+    .no-background {
+        background: none !important;
+    }
+/* Genéricos */
+    .border-radius-10 {
+        border-radius: 10px !important;
+    }
+    .border-color-gold {
+        border-color: var(--color-dorado) !important;
+    }
+    .border-width-1 {
+        border-width: 1px !important;
+    }
+    .border-style-solid {
+        border-style: solid !important;
+    }
+    .hide {
+        display: none;
+    }
+    .divisor-bottom {
+        border-bottom: 1px solid var(--color-dorado);
+    }
+/* Botones */
+    .btn-basico {
+        background: var(--color-azul) !important;
+        border-style: solid !important;
+        border-width: 1px !important;
+        color: var(--color-blanco) !important;
+    }
+    .btn-basico.active {
+        background: var(--color-dorado) !important;
+        color: var(--color-principal) !important;
+    }
+    .btn-basico:hover {
+        background: var(--color-dorado) !important;
+        color: var(--color-principal) !important;
+    }
+body {
+    background-color: var(--color-principal) !important;
+    font-family: "regular", serif !important;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+    margin: 0;
+    padding: 0;
+}
+    #imagen_perfil {
+        background: var(--color-dorado);
+        border-radius: 50%;
+        height: 250px;
+        margin: auto;
+        width: 250px;
+    }
+    #pestana_proyectos .card .imagen-proyecto {
+        background: url('https://cdn.pixabay.com/photo/2025/01/17/16/06/building-9340309_960_720.jpg');
+        background-position: center center;
+        background-size: 100% auto;
+        height: 250px;
+        width: 100%;
+        transition: all .2s;
+    }
+    #pestana_proyectos .card:hover .imagen-proyecto {
+        background-size: 125% auto;
+    }
+    #pestana_habilidades i {
+        font-size: 2em;
+    }
+/* Media Queries */
+    @media (max-width: 576px) { /* Móvil */
+        .btn-nav {
+            margin-bottom: 20px;
+        }
+        #pestana_proyectos {
+            padding: 10px;
+        }
+            #pestana_proyectos .card {
+                margin-bottom: 20px;
+            }
+    }
