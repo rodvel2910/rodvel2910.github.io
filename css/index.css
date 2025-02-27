@@ -1,27 +1,26 @@
 /* Variables */
     :root {
-        --color-principal: #222;
-        --color-azul: #405284;
-        --color-dorado: #daa520;
-        --color-blanco: white;
+        --color-fondo: #1C1C1C;
+        --color-primario: #D4AF37;
+        --color-secundario: #8C7851;
+        --color-texto: #F5F5F5;
     }
 /* Fuentes */
-    /* @import url('https://fonts.googleapis.com/css2?family=Playwrite+IN:wght@100..400&display=swap'); */
     @font-face {
         font-family: 'light';
-        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Thin.ttf');
+        src: url('../librerias/fuentes/Space_Grotesk/static/SpaceGrotesk-Light.ttf');
         font-weight: 100;
         font-style: normal;
     }
     @font-face {
         font-family: 'regular';
-        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Light.ttf');
+        src: url('../librerias/fuentes/Space_Grotesk/static/SpaceGrotesk-Regular.ttf');
         font-weight: 300;
         font-style: normal;
     }
     @font-face {
         font-family: 'bold';
-        src: url('../librerias/Playwrite_IN/static/PlaywriteIN-Regular.ttf');
+        src: url('../librerias/fuentes/Space_Grotesk/static/SpaceGrotesk-Bold.ttf');
         font-weight: 400;
         font-style: normal;
     }
@@ -35,48 +34,37 @@
         font-family: "bold", serif !important;
     }
 /* Colores */
-    .white {
-        background: var(--color-blanco) !important;
+    .fondo-fondo {
+        background: var(--color-fondo);
     }
-    .white-text {
-        color: var(--color-blanco) !important;
+    .fondo-primario {
+        background: var(--color-primario);
     }
-    .gold {
-        background: var(--color-dorado) !important;
+    .fondo-secundario {
+        background: var(--color-secundario);
     }
-    .blue {
-        background: var(--color-azul) !important;
+    .fondo-texto {
+        background: var(--color-texto);
     }
-    .principal {
-        background: var(--color-principal) !important;
+    .color-fondo {
+        color: var(--color-fondo);
     }
-    .principal-text {
-        color: var(--color-principal) !important;
+    .color-primario {
+        color: var(--color-primario);
+    }
+    .color-secundario {
+        color: var(--color-secundario);
+    }
+    .color-texto {
+        color: var(--color-texto);
     }
     .no-background {
         background: none !important;
     }
 /* Genéricos */
-    .border-radius-10 {
-        border-radius: 10px !important;
-    }
-    .border-color-gold {
-        border-color: var(--color-dorado) !important;
-    }
-    .border-width-1 {
-        border-width: 1px !important;
-    }
-    .border-style-solid {
-        border-style: solid !important;
-    }
-    .hide {
-        display: none;
-    }
-    .divisor-bottom {
-        border-bottom: 1px solid var(--color-dorado);
-    }
+
 /* Botones */
-    .btn-basico {
+    /* .btn-basico {
         background: var(--color-azul) !important;
         border-style: solid !important;
         border-width: 1px !important;
@@ -89,9 +77,36 @@
     .btn-basico:hover {
         background: var(--color-dorado) !important;
         color: var(--color-principal) !important;
+    } */
+/* Animaciones */
+    .rebote {
+        animation-name: rebote;
+        animation-duration: .2s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
     }
+        @keyframes rebote {
+            50% {
+                transform: scale(2);
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    .desvanecer {
+        animation-name: desvanecer;
+        animation-duration: .5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+        @keyframes desvanecer {
+            100% {
+                opacity: 0;
+            }
+        }
 body {
-    background-color: var(--color-principal) !important;
+    background-color: var(--color-fondo) !important;
+    color: var(--color-texto) !important;
     font-family: "regular", serif !important;
     font-optical-sizing: auto;
     font-weight: 300;
@@ -99,36 +114,18 @@ body {
     margin: 0;
     padding: 0;
 }
-    #imagen_perfil {
-        background: var(--color-dorado);
-        border-radius: 50%;
-        height: 250px;
+    #wrapper_fullscreen {
+        bottom: 0;
+        height: fit-content;
+        left: 0;
         margin: auto;
-        width: 250px;
+        right: 0;
+        top: 0;
+        position: absolute;
+        text-align: center;
     }
-    #pestana_proyectos .card .imagen-proyecto {
-        background: url('https://cdn.pixabay.com/photo/2025/01/17/16/06/building-9340309_960_720.jpg');
-        background-position: center center;
-        background-size: 100% auto;
-        height: 250px;
-        width: 100%;
-        transition: all .2s;
-    }
-    #pestana_proyectos .card:hover .imagen-proyecto {
-        background-size: 125% auto;
-    }
-    #pestana_habilidades i {
-        font-size: 2em;
-    }
-/* Media Queries */
-    @media (max-width: 576px) { /* Móvil */
-        .btn-nav {
-            margin-bottom: 20px;
-        }
-        #pestana_proyectos {
-            padding: 10px;
-        }
-            #pestana_proyectos .card {
-                margin-bottom: 20px;
-            }
+    #titulo_saludo {
+        margin: auto;
+        text-align: center;
+        width: fit-content;
     }
