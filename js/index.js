@@ -51,9 +51,23 @@ $(document).ready(function() {
                                 $('#wrapper_foto').css({
                                     'bottom': 'calc(100% - 350px)',
                                 })
-                                $('#wrapper_contenido').css({
-                                    'bottom': 'calc(100% - 425px)'
-                                })
+                                setTimeout(() => {
+                                    $('#wrapper_foto').css({
+                                        'transition': 'none',
+                                    })
+                                    $('#wrapper_foto').css({
+                                        'position': 'relative',
+                                        'top': '40px',
+                                    })
+                                    $('#wrapper_contenido').css({
+                                        'transition': 'all .5s'
+                                    })
+                                    setTimeout(() => {
+                                        $('#wrapper_contenido').css({
+                                            'opacity': '1'
+                                        })
+                                    }, 500)
+                                }, 500)
                             }, 1000)
                         }, 500)
                     }, 1000)

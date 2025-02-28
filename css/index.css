@@ -156,15 +156,9 @@ body {
         transition: all .5s;
     }
     #wrapper_contenido {
-        bottom: -100%;
-        height: fit-content;
-        left: 0;
-        margin: auto;
-        position: absolute;
-        right: 0;
-        width: 100%;
-        transition: all .5s;
+        opacity: 0;
     }
         #wrapper_contenido .container {
             border-radius: 10px;
+            margin-top: 80px;
         }
