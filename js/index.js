@@ -35,11 +35,11 @@ $(document).ready(function() {
                         'transform': 'translateY(-100%)'
                     })
                     setTimeout(() => {
-                        $('#wrapper_foto').css({
-                            'top': '-18px',
-                            'transform': 'none',
-                            'transition': 'none'
-                        })
+                        // $('#wrapper_foto').css({
+                        //     'top': '-18px',
+                        //     'transform': 'none',
+                        //     'transition': 'none'
+                        // })
                         setTimeout(() => {
                             $('#wrapper_foto').css({
                                 'transition': 'all .5s',
