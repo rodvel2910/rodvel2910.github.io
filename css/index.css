@@ -104,6 +104,20 @@
                 opacity: 0;
             }
         }
+    .aparecer {
+        animation-name: aparecer;
+        animation-duration: .5s;
+        animation-iteration-count: 1;
+        animation-fill-mode: forwards;
+    }
+        @keyframes aparecer {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
 body {
     background-color: var(--color-fondo) !important;
     color: var(--color-texto) !important;
@@ -124,8 +138,33 @@ body {
         position: absolute;
         text-align: center;
     }
-    #titulo_saludo {
+        #titulo_saludo {
+            margin: auto;
+            text-align: center;
+            width: fit-content;
+        }
+    #wrapper_foto {
+        background: var(--color-primario);
+        border-radius: 50%;
+        bottom: -250px;
+        height: 250px;
+        left: 0;
         margin: auto;
-        text-align: center;
-        width: fit-content;
+        right: 0;
+        position: absolute;
+        width: 250px;
+        transition: all .5s;
     }
+    #wrapper_contenido {
+        bottom: -100%;
+        height: fit-content;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        width: 100%;
+        transition: all .5s;
+    }
+        #wrapper_contenido .container {
+            border-radius: 10px;
+        }
