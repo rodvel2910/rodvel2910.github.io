@@ -17,6 +17,7 @@
 //     console.log('Pestaña recibida: ' + pestana)
 // }
 $(document).ready(function() {
+    $('#wrapper_fullscreen').removeClass('d-none')
     $('#titulo_saludo').addClass('rebote')
     setTimeout(() => {
         // $('#titulo_saludo').addClass('d-none')
@@ -36,49 +37,24 @@ $(document).ready(function() {
                     setTimeout(() => {
                         $('#titulo_saludo').removeClass('aparecer')
                         $('#titulo_saludo').addClass('desvanecer')
+                        $('#wrapper_contenido').removeClass('d-none')
                         setTimeout(() => {
+                            $('body').css({
+                                'overflow-y': 'auto',
+                            })
                             $('#wrapper_foto').css({
                                 'opacity': '1',
                                 'transform': 'translateY(0px)',
                                 'transition': 'all .5s'
                             })
+                            $('#wrapper_contenido').css({
+                                'transition': 'all .5s'
+                            })
                             setTimeout(() => {
-                                // $('#wrapper_foto').css({
-                                //     'top': '-18px',
-                                //     'transform': 'none',
-                                //     'transition': 'none'
-                                // })
-                                /*setTimeout(() => {
-                                    $('#wrapper_foto').css({
-                                        'transition': 'all .5s',
-                                    })
-                                    $('#wrapper_foto').css({
-                                        'box-shadow': '0 0 40px #D4AF37',
-                                    })
-                                    setTimeout(() => {
-                                        $('#wrapper_foto').css({
-                                            'bottom': 'calc(100% - 350px)',
-                                        })
-                                        setTimeout(() => {
-                                            $('#wrapper_foto').css({
-                                                'transition': 'none',
-                                            })
-                                            $('#wrapper_foto').css({
-                                                'position': 'relative',
-                                                'top': '40px',
-                                            })
-                                            $('#wrapper_contenido').css({
-                                                'transition': 'all .5s'
-                                            })
-                                            setTimeout(() => {
-                                                $('#wrapper_contenido').css({
-                                                    'opacity': '1'
-                                                })
-                                            }, 500)
-                                        }, 500)
-                                    }, 1000)
-                                }, 500)*/
-                            }, 1000)
+                                $('#wrapper_contenido').css({
+                                    'opacity': '1'
+                                })
+                            }, 500)
                         }, 500)
                     }, 1000)
                 }, 500)
