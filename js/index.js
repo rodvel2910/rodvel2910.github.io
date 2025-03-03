@@ -51,9 +51,11 @@ $(document).ready(function() {
                                 'transition': 'all .5s'
                             })
                             setTimeout(() => {
+                                $('#wrapper_fullscreen').addClass('d-none')
                                 $('#wrapper_contenido').css({
                                     'opacity': '1'
                                 })
+                                $('.btn-nav').click(cambiarPestana)
                             }, 500)
                         }, 500)
                     }, 1000)
@@ -62,3 +64,13 @@ $(document).ready(function() {
         }, 500)
     }, 2000)
 })
+function cambiarPestana() {
+    $('.btn-nav').each(function() {
+        $(this).removeClass('active')
+    })
+    $(this).addClass('active')
+    $('.wrapper-contenido').each(function() {
+        $(this).addClass('d-none')
+    })
+    $('#contenido_' + $(this).attr('data-pestana')).removeClass('d-none')
+}

@@ -64,20 +64,14 @@
 /* Genéricos */
 
 /* Botones */
-    /* .btn-basico {
-        background: var(--color-azul) !important;
-        border-style: solid !important;
-        border-width: 1px !important;
-        color: var(--color-blanco) !important;
+    .btn-nav {
+        border-color: var(--color-secundario) !important;
+        cursor: pointer !important;
     }
-    .btn-basico.active {
-        background: var(--color-dorado) !important;
-        color: var(--color-principal) !important;
-    }
-    .btn-basico:hover {
-        background: var(--color-dorado) !important;
-        color: var(--color-principal) !important;
-    } */
+        .btn-nav.active {
+            background: var(--color-primario) !important;
+            color: var(--color-texto) !important;
+        }
 /* Animaciones */
     .rebote {
         animation-name: rebote;
