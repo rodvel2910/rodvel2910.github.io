@@ -72,6 +72,12 @@
             background: var(--color-primario) !important;
             color: var(--color-texto) !important;
         }
+    .btn-basico {
+        background: var(--color-secundario) !important;
+        color: var(--color-texto) !important;
+        border: none !important;
+        cursor: pointer !important;
+    }
 /* Animaciones */
     .rebote {
         animation-name: rebote;
@@ -121,7 +127,7 @@ body {
     font-style: normal;
     margin: 0;
     padding: 0;
-    overflow-y: hidden;
+    /* overflow-y: hidden; */
 }
     #wrapper_fullscreen {
         bottom: 0;
@@ -163,3 +169,10 @@ body {
             border-radius: 10px;
             margin-top: 40px;
         }
+            #wrapper_contenido .container .accordion-button:not(.collapsed) {
+                background: var(--color-fondo) !important;
+                color: var(--color-primario) !important;
+            }
+            #wrapper_contenido .container .accordion-button:focus {
+                box-shadow: 0 0 0 0.25rem rgba(28, 28, 28, .2);
+            }

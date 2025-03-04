@@ -28,6 +28,22 @@
     </div>
     <div id="wrapper_foto" class="mt-5"></div>
     <div id="wrapper_contenido" class="ps-4 pe-4 d-none">
+        <div class="modal fade" id="modalGenerico" tabindex="-1" aria-labelledby="modalGenericoLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5 color-fondo" id="modalGenericoLabel"><span class="fuente-bold">Proyecto:</span> <span id="modalTituloProyecto"></span></h1>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary cerrar-modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+                </div>
+            </div>
+        </div>
         <div class="container fondo-texto color-fondo p-4 mb-4">
             <div class="row">
                 <div class="col-6 col-sm-4">
@@ -57,10 +73,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Aecsa</h5>
-                                            <!-- Incluir años de trabajo -->
+                                            <h5 class="card-title fuente-bold">Aecsa</h5>
+                                            <h6 class="fuente-regular">2021 - Presente</h6>
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero, cuenta con una plataforma para el manejo de múltiples procesos internos de la compañía y el manejo de micrositios.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -68,10 +84,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Aecsa - Innovación</h5>
+                                            <h5 class="card-title fuente-bold">Aecsa - Innovación</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Página principal del Estado de Innovación. Se hizo desde cero, cuenta con su propia plataforma de gestión de contenidos hecha a la medida y que cubre y simplifica el manejo y control de varios procesos del área.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -79,10 +95,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Aecsa - Sostenibilidad</h5>
+                                            <h5 class="card-title fuente-bold">Aecsa - Sostenibilidad</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Landing page principal del área de sostenibilidad. Se hizo desde cero a la medida de lo solicitado por el área mencionada.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -90,10 +106,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Aecsa - Autogestionadores</h5>
+                                            <h5 class="card-title fuente-bold">Aecsa - Autogestionadores</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Plataformas separadas e independientes altamente personalizables pensadas en la recuperación de cartera y autogestión del usuario.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -101,10 +117,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Mamba</h5>
+                                            <h5 class="card-title fuente-bold">Mamba</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Spinoff de Aecsa, plataforma de cobranza digital. Se hizo desde cero, integra una pasarela de pagos y una robusta plataforma interna enfocada a facilitar el proceso de recuperación de cartera de las pymes.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -112,10 +128,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">The Flow Architects</h5>
+                                            <h5 class="card-title fuente-bold">The Flow Architects</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -134,10 +150,10 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Grupo Tecnológico</h5>
+                                            <h5 class="card-title fuente-bold">Grupo Tecnológico</h5>
                                             <!-- Incluir años de trabajo -->
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero y cuenta con una robusta plataforma de ERP interna hecha a la medida para el manejo de múltiples procesos internos de la compañía.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -145,9 +161,9 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">Digital MTX</h5>
+                                            <h5 class="card-title fuente-bold">Digital MTX</h5>
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero, integra una pasarela de pago y una plataforma interna para el manejo del sitio (gestor de contenidos) y productos (tienda online).</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,9 +171,9 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">WDC Mayorista</h5>
+                                            <h5 class="card-title fuente-bold">WDC Mayorista</h5>
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -165,9 +181,9 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">LabCoope</h5>
+                                            <h5 class="card-title fuente-bold">LabCoope</h5>
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero y cuenta con un gestor de contenidos hecho a la medida para manejar la página y mantener sus respectivas secciones actualizadas.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -175,9 +191,9 @@
                                     <div class="card ps-0 pe-0 no-background border-color-gold">
                                         <div class="imagen-proyecto"></div>
                                         <div class="card-body white-text">
-                                            <h5 class="card-title">TLMtrans</h5>
+                                            <h5 class="card-title fuente-bold">TLMtrans</h5>
                                             <p class="card-text fuente-light">Página principal de la empresa. Se hizo desde cero.</p>
-                                            <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                            <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                         </div>
                                     </div>
                                 </div>
@@ -202,9 +218,9 @@
                             <div class="card ps-0 pe-0 no-background border-color-gold">
                                 <div class="imagen-proyecto"></div>
                                 <div class="card-body white-text">
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title fuente-bold">Card title</h5>
                                     <p class="card-text fuente-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                    <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                 </div>
                             </div>
                         </div>
@@ -212,9 +228,9 @@
                             <div class="card ps-0 pe-0 no-background border-color-gold">
                                 <div class="imagen-proyecto"></div>
                                 <div class="card-body white-text">
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title fuente-bold">Card title</h5>
                                     <p class="card-text fuente-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                    <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                 </div>
                             </div>
                         </div>
@@ -222,9 +238,9 @@
                             <div class="card ps-0 pe-0 no-background border-color-gold">
                                 <div class="imagen-proyecto"></div>
                                 <div class="card-body white-text">
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title fuente-bold">Card title</h5>
                                     <p class="card-text fuente-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                    <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                 </div>
                             </div>
                         </div>
@@ -232,9 +248,9 @@
                             <div class="card ps-0 pe-0 no-background border-color-gold">
                                 <div class="imagen-proyecto"></div>
                                 <div class="card-body white-text">
-                                    <h5 class="card-title">Card title</h5>
+                                    <h5 class="card-title fuente-bold">Card title</h5>
                                     <p class="card-text fuente-light">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                    <a href="#" class="btn btn-basico">Ver más <i class="bi bi-arrow-right-circle"></i></a>
+                                    <button class="btn btn-basico abrir-modal fuente-bold" data-proyecto="">Ver más</button>
                                 </div>
                             </div>
                         </div>

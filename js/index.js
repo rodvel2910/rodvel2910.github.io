@@ -55,7 +55,16 @@ $(document).ready(function() {
                                 $('#wrapper_contenido').css({
                                     'opacity': '1'
                                 })
-                                $('.btn-nav').click(cambiarPestana)
+                                //Nav
+                                    $('.btn-nav').click(cambiarPestana)
+                                //Modal
+                                    var contador_proyectos = 0
+                                    $('.abrir-modal').each(function() {
+                                        $(this).attr('data-proyecto', contador_proyectos)
+                                        contador_proyectos++
+                                    })
+                                    $('.abrir-modal').click(abrirModal)
+                                    $('.cerrar-modal').click(cerrarModal)
                             }, 500)
                         }, 500)
                     }, 1000)
@@ -73,4 +82,17 @@ function cambiarPestana() {
         $(this).addClass('d-none')
     })
     $('#contenido_' + $(this).attr('data-pestana')).removeClass('d-none')
+}
+var proyectos = [
+    {
+        titulo: 'Aecsa',
+        descripcion: 'Sitio web diseñado para mostrar mis habilidades y proyectos.',
+    },
+]
+function abrirModal() {
+    $('#modalGenerico').modal('show')
+    $('#modalTituloProyecto').html(proyectos[$(this).attr('data-proyecto')].titulo)
+}
+function cerrarModal() {
+    $('#modalGenerico').modal('hide')
 }
