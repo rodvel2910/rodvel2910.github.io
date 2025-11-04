@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de deseos</title>
+    <style>
+      .hide {
+        display: none;
+      }
+      body {
+        background: #f1f1f1;
+        font-family: Arial, sans-serif;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background-color: #f2f2f2;
+      }
+      input[type="text"] {
+        width: 80%;
+        padding: 4px;
+      }
+      button {
+        padding: 6px 10px;
+        cursor: pointer;
+      }
+      .center {
+        text-align: center;
+      }
+      #productoForm label {
+        font-weight: bold;
+      }
+      #productoForm input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 15px;
+        border: 1px solid #333;
+      }
+      #productoForm button {
+        border-radius: 15px;
+        padding: 15px;
+        background: #333;
+        color: white;
+        font-weight: bold;
+        border: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Administrador -->
+    <form id="productoForm" class="hide">
+      <div>
+        <p><label>Item: </label></p>
+        <input type="text" id="nombre" required />
+      </div>
+      <div>
+        <p class="center"><button type="submit">Agregar producto</button></p>
+      </div>
+    </form>
+
+    <!-- Lista -->
+    <h1>Listado para el Casa Shower</h1>
+    <table id="tablaProductos">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Disponibilidad</th>
+          <th>Persona</th>
+          <th>Fecha reserva</th>
+          <th>Reservar</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <!-- Scripts de JavaScript -->
+    <script>
+      //Revisar URL
+      const params = new URLSearchParams(window.location.search);
+      const permisos = params.get("permisos") == 1 ? true : false; // "Juan"
+      //API
+      const binUrl = "https://api.jsonbin.io/v3/b/690952aed0ea881f40d20edd"; // tu URL real
+      const apiKey =
+        "$2a$10$Lt9UZJygoy8LLWrzMl9zleQs.IHTuhXF.EwfqdsZf25m5aZHnJcfG"; // ⚠️ no uses la Master Key pública
+      //Validar permisos
+      if (permisos) {
+        //Administrador
+        const form = document.getElementById("productoForm");
+
+        productoForm.classList.remove("hide");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          // 1️⃣ Tomar datos del formulario
+          const nuevoProducto = {
+            nombre: document.getElementById("nombre").value,
+            estado: "Disponible",
+            persona: "",
+            fecha: "",
+          };
+
+          // 2️⃣ Leer el JSON actual
+          const leer = await fetch(binUrl, {
+            headers: { "X-Master-Key": apiKey },
+          });
+          const data = await leer.json();
+          const productos = data.record.productos || [];
+
+          // 3️⃣ Agregar el nuevo producto
+          productos.push(nuevoProducto);
+
+          // 4️⃣ Actualizar el bin con el nuevo array
+          const actualizar = await fetch(binUrl, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "X-Master-Key": apiKey,
+            },
+            body: JSON.stringify({ productos }),
+          });
+
+          form.reset();
+        });
+      }
+      // Inicializar
+      cargarProductos();
+      // === Función para obtener los productos del bin ===
+      async function cargarProductos() {
+        const res = await fetch(binUrl, {
+          headers: { "X-Master-Key": apiKey },
+        });
+        const data = await res.json();
+        const productos = data.record.productos;
+        mostrarProductos(productos);
+      }
+
+      // === Mostrar productos en la tabla ===
+      function mostrarProductos(productos) {
+        const tbody = document.querySelector("#tablaProductos tbody");
+        tbody.innerHTML = "";
+
+        productos.forEach((p, index) => {
+          console.log(p.fecha);
+          var fecha =
+            p.fecha != "" ? new Date(p.fecha).toLocaleString() : "N/A";
+          const fila = document.createElement("tr");
+          fila.innerHTML = `
+        <td>${p.nombre}</td>
+        <td>${p.estado}</td>
+        <td>${p.persona || "N/A"}</td>
+        <td>${fecha}</td>
+        <td>
+          ${
+            p.estado === "Disponible"
+              ? `
+                <input type="text" placeholder="Tu nombre" id="persona-${index}">
+                <button onclick="reservar(${index})">Reservar</button>
+              `
+              : `<em>Reservado</em>`
+          }
+        </td>
+      `;
+          tbody.appendChild(fila);
+        });
+      }
+      // === Función para reservar un producto ===
+      async function reservar(indice) {
+        const input = document.getElementById(`persona-${indice}`);
+        const nombre = input.value.trim();
+        if (!nombre)
+          return alert("Por favor, ingresa tu nombre para reservar.");
+
+        // Leer datos actuales
+        const res = await fetch(binUrl, {
+          headers: { "X-Master-Key": apiKey },
+        });
+        const data = await res.json();
+        const productos = data.record.productos;
+
+        // Modificar el producto seleccionado
+        productos[indice].estado = "Reservado";
+        productos[indice].persona = nombre;
+        productos[indice].fecha = new Date().toISOString();
+
+        // Subir cambios
+        await fetch(binUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key": apiKey,
+          },
+          body: JSON.stringify({ productos }),
+        });
+
+        alert(`✅ ${productos[indice].nombre} reservado por ${nombre}`);
+        cargarProductos(); // Recargar tabla
+      }
+    </script>
+  </body>
+</html>
