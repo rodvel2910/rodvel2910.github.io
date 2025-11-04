@@ -56,7 +56,6 @@
     </style>
   </head>
   <body>
-    <!-- Administrador -->
     <form id="productoForm" class="hide">
       <div>
         <p><label>Item: </label></p>
@@ -67,7 +66,6 @@
       </div>
     </form>
 
-    <!-- Lista -->
     <h1>Listado para el Casa Shower</h1>
     <table id="tablaProductos">
       <thead>
@@ -82,26 +80,20 @@
       <tbody></tbody>
     </table>
 
-    <!-- Scripts de JavaScript -->
     <script>
-      //Revisar URL
       const params = new URLSearchParams(window.location.search);
-      const permisos = params.get("permisos") == 1 ? true : false; // "Juan"
-      //API
-      const binUrl = "https://api.jsonbin.io/v3/b/690952aed0ea881f40d20edd"; // tu URL real
-      const apiKey =
-        "$2a$10$Lt9UZJygoy8LLWrzMl9zleQs.IHTuhXF.EwfqdsZf25m5aZHnJcfG"; // ⚠️ no uses la Master Key pública
-      //Validar permisos
-      if (permisos) {
-        //Administrador
-        const form = document.getElementById("productoForm");
+      const permisos = params.get("permisos") == 1 ? true : false;
 
-        productoForm.classList.remove("hide");
+      // 🔐 Tu proxy seguro (no incluye ninguna key)
+      const proxyUrl =
+        "https://nextjs-delta-jet-xojigpy6ij.vercel.app/api/jsonbin"; // cámbialo por tu URL real de Vercel
+
+      if (permisos) {
+        const form = document.getElementById("productoForm");
+        form.classList.remove("hide");
 
         form.addEventListener("submit", async (e) => {
           e.preventDefault();
-
-          // 1️⃣ Tomar datos del formulario
           const nuevoProducto = {
             nombre: document.getElementById("nombre").value,
             estado: "Disponible",
@@ -109,101 +101,84 @@
             fecha: "",
           };
 
-          // 2️⃣ Leer el JSON actual
-          const leer = await fetch(binUrl, {
-            headers: { "X-Master-Key": apiKey },
-          });
+          // Leer productos actuales
+          const leer = await fetch(proxyUrl);
           const data = await leer.json();
           const productos = data.record.productos || [];
 
-          // 3️⃣ Agregar el nuevo producto
+          // Agregar el nuevo
           productos.push(nuevoProducto);
 
-          // 4️⃣ Actualizar el bin con el nuevo array
-          const actualizar = await fetch(binUrl, {
+          // Guardar en JSONbin a través del proxy
+          await fetch(proxyUrl, {
             method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Master-Key": apiKey,
-            },
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ productos }),
           });
 
           form.reset();
+          cargarProductos();
         });
       }
-      // Inicializar
+
       cargarProductos();
-      // === Función para obtener los productos del bin ===
+
       async function cargarProductos() {
-        const res = await fetch(binUrl, {
-          headers: { "X-Master-Key": apiKey },
-        });
+        const res = await fetch(proxyUrl);
         const data = await res.json();
-        const productos = data.record.productos;
+        const productos = data.record.productos || [];
         mostrarProductos(productos);
       }
 
-      // === Mostrar productos en la tabla ===
       function mostrarProductos(productos) {
         const tbody = document.querySelector("#tablaProductos tbody");
         tbody.innerHTML = "";
 
         productos.forEach((p, index) => {
-          console.log(p.fecha);
-          var fecha =
-            p.fecha != "" ? new Date(p.fecha).toLocaleString() : "N/A";
+          var fecha = p.fecha ? new Date(p.fecha).toLocaleString() : "N/A";
           const fila = document.createElement("tr");
           fila.innerHTML = `
-        <td>${p.nombre}</td>
-        <td>${p.estado}</td>
-        <td>${p.persona || "N/A"}</td>
-        <td>${fecha}</td>
-        <td>
-          ${
-            p.estado === "Disponible"
-              ? `
-                <input type="text" placeholder="Tu nombre" id="persona-${index}">
-                <button onclick="reservar(${index})">Reservar</button>
-              `
-              : `<em>Reservado</em>`
-          }
-        </td>
-      `;
+            <td>${p.nombre}</td>
+            <td>${p.estado}</td>
+            <td>${p.persona || "N/A"}</td>
+            <td>${fecha}</td>
+            <td>
+              ${
+                p.estado === "Disponible"
+                  ? `
+                    <input type="text" placeholder="Tu nombre" id="persona-${index}">
+                    <button onclick="reservar(${index})">Reservar</button>
+                  `
+                  : `<em>Reservado</em>`
+              }
+            </td>
+          `;
           tbody.appendChild(fila);
         });
       }
-      // === Función para reservar un producto ===
+
       async function reservar(indice) {
         const input = document.getElementById(`persona-${indice}`);
         const nombre = input.value.trim();
         if (!nombre)
           return alert("Por favor, ingresa tu nombre para reservar.");
 
-        // Leer datos actuales
-        const res = await fetch(binUrl, {
-          headers: { "X-Master-Key": apiKey },
-        });
+        const res = await fetch(proxyUrl);
         const data = await res.json();
         const productos = data.record.productos;
 
-        // Modificar el producto seleccionado
         productos[indice].estado = "Reservado";
         productos[indice].persona = nombre;
         productos[indice].fecha = new Date().toISOString();
 
-        // Subir cambios
-        await fetch(binUrl, {
+        await fetch(proxyUrl, {
           method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            "X-Master-Key": apiKey,
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ productos }),
         });
 
         alert(`✅ ${productos[indice].nombre} reservado por ${nombre}`);
-        cargarProductos(); // Recargar tabla
+        cargarProductos();
       }
     </script>
   </body>
