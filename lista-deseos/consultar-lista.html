@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Crea tu lista de regalos</title>
+    <title>Consultar lista</title>
     <link rel="stylesheet" href="librerias/materialize.min.css" />
     <link rel="stylesheet" href="librerias/material-icons.css" />
     <style>
@@ -152,6 +152,7 @@
     <script src="librerias/materialize.min.js"></script>
     <script src="librerias/sweetalert2@11.js"></script>
     <script>
+      alert("Validar parámetros");
       const params = new URLSearchParams(window.location.search);
       // const permisos = params.get("permisos") == 1 ? true : false;
 
@@ -201,8 +202,7 @@
               icon: "success",
               confirmButtonText: "Aceptar",
             }).then(function () {
-              window.location.href =
-                "consultar-lista.html?lista=" + nuevaLista.id;
+              window.location.href = "?lista=" + nuevaLista.id;
             });
           } else {
             //Alerta de confirmación
