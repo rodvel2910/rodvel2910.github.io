@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de deseos</title>
+    <link rel="stylesheet" href="librerias/materialize.min.css" />
+    <link rel="stylesheet" href="librerias/material-icons.css" />
+    <style>
+      .hide {
+        display: none;
+      }
+      body {
+        background: white;
+        font-family: Arial, sans-serif;
+      }
+      .margin-top-40 {
+        margin-top: 40px;
+      }
+      .margin-bottom-40 {
+        margin-bottom: 40px;
+      }
+      .card-title {
+        font-weight: bold !important;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="crearLista">
+      <div class="row container">
+        <div class="col s12 center">
+          <h5><b>Opciones de administrador</b></h5>
+        </div>
+        <div class="input-field col s12">
+          <i class="material-icons prefix">sell</i>
+          <input id="nombre_lista" type="text" class="validate" required />
+          <label for="nombre_lista">Nombre de la lista</label>
+        </div>
+        <div class="col s12 center">
+          <button class="btn-large black white-text" type="submit">
+            <b>Crear lista <i class="material-icons right">add</i></b>
+          </button>
+        </div>
+      </div>
+      <div class="divider"></div>
+    </form>
+    <div class="row container">
+      <div class="col s12 center margin-bottom-40 margin-top-40">
+        <h5><b>Listado para el Casa Shower</b></h5>
+      </div>
+      <div id="wrapper_productos" class="col s12"></div>
+    </div>
+    <script src="librerias/materialize.min.js"></script>
+    <script src="librerias/sweetalert2@11.js"></script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      // const permisos = params.get("permisos") == 1 ? true : false;
+
+      // 🔐 Tu proxy seguro (no incluye ninguna key)
+      const proxyUrl =
+        "https://nextjs-delta-jet-xojigpy6ij.vercel.app/api/jsonbin"; // cámbialo por tu URL real de Vercel
+
+      const form = document.getElementById("crearLista");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        if (document.getElementById("nombre_lista").value.trim() == "") {
+          Swal.fire({
+            title: "Necesitas escribir un nombre para tu lista",
+            text: "Inténtalo de nuevo.",
+            icon: "error",
+            confirmButtonText: "Cerrar",
+          });
+        } else {
+          const nuevaLista = {
+            nombre: document.getElementById("nombre_lista").value,
+          };
+
+          // Leer productos actuales
+          const leer = await fetch(proxyUrl);
+          const data = await leer.json();
+          const lista = [];
+
+          // Agregar el nuevo
+          lista.push(nuevaLista);
+
+          // Guardar en JSONbin a través del proxy
+          var response = await fetch(proxyUrl, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ lista }),
+          });
+
+          console.log(response);
+
+          //Alerta de confirmación
+          Swal.fire({
+            title: "Lista creada con éxito",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+          });
+
+          form.reset();
+          // cargarProductos();
+        }
+      });
+
+      //cargarProductos();
+
+      async function cargarProductos() {
+        const res = await fetch(proxyUrl);
+        const data = await res.json();
+        const productos = data.record.productos || [];
+        mostrarProductos(productos);
+      }
+
+      function mostrarProductos(productos) {
+        document.getElementById("wrapper_productos").innerHTML = "";
+        productos.forEach((p, index) => {
+          var fecha = p.fecha ? new Date(p.fecha).toLocaleString() : "N/A";
+          //Añadir tarjeta
+          document.getElementById("wrapper_productos").innerHTML += `
+            <div class="col s12 m6 l4">
+              <div class="card">
+                <div class="card-image">
+                  <img src="${
+                    p.imagen != "" ? p.imagen : `imagen-card.jpg`
+                  }" draggable="false" class="materialboxed" />
+                </div>
+                <div class="card-content">
+                  <span class="card-title">
+                    ${
+                      p.estado === "Disponible"
+                        ? `
+                          <i class="material-icons left orange-text text-darken-1">pending</i>
+                        `
+                        : `
+                          <i class="material-icons left green-text">check</i>
+                        `
+                    }
+                    ${p.nombre}
+                  </span>
+                </div>
+                <div class="card-action">
+                  ${
+                    p.estado === "Disponible"
+                      ? `
+                          <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input id="persona-${index}" type="text" class="validate" />
+                            <label for="persona-${index}">Tu nombre</label>
+                            <span class="helper-text">-</span>
+                          </div>
+                          <div class="center">
+                            <button class="btn black white-text" onclick="reservar(${index})">
+                              <b>Reservar</b> <i class="material-icons right">keyboard_arrow_right</i>
+                            </button>
+                          </div>
+                        `
+                      : `
+                          <div class="input-field">
+                            <i class="material-icons prefix">account_circle</i>
+                            <input type="text" readonly disabled class="validate" value="${
+                              p.persona || ""
+                            }" />
+                            <label class="active">Reservado por</label>
+                            <span class="helper-text">Reservado el: ${fecha}</span>
+                          </div>
+                          <div class="center">
+                            <button class="btn grey white-text disabled">
+                              <b>No disponible</b> <i class="material-icons right">block</i>
+                            </button>
+                          </div>
+                        `
+                  }
+                </div>
+              </div>
+            </div>
+          `;
+        });
+        var elems = document.querySelectorAll(".materialboxed");
+        var instances = M.Materialbox.init(elems, {});
+      }
+
+      async function reservar(indice) {
+        const input = document.getElementById(`persona-${indice}`);
+        const nombre = input.value.trim();
+        if (!nombre) {
+          Swal.fire({
+            title: "Necesitas escribir tu nombre",
+            text: "Inténtalo de nuevo.",
+            icon: "error",
+            confirmButtonText: "Cerrar",
+          }).then(() => {
+            input.focus();
+          });
+        } else {
+          const res = await fetch(proxyUrl);
+          const data = await res.json();
+          const productos = data.record.productos;
+
+          productos[indice].estado = "Reservado";
+          productos[indice].persona = nombre;
+          productos[indice].fecha = new Date().toISOString();
+
+          await fetch(proxyUrl, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ productos }),
+          });
+
+          //Mensaje de confirmación
+          Swal.fire({
+            title: "Producto reservado con éxito",
+            icon: "success",
+            confirmButtonText: "Aceptar",
+          });
+
+          cargarProductos();
+        }
+      }
+    </script>
+  </body>
+</html>
